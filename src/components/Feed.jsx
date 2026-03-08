@@ -24,6 +24,7 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
+
   return (
     feed && (
       <div className="flex justify-center my-10">
