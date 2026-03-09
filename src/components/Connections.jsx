@@ -7,12 +7,12 @@ import { addConnections } from "../utils/connectionSlice";
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connections);
+
   const fetchConnecions = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
       });
-      console.log(res.data);
       dispatch(addConnections(res.data));
     } catch (err) {
       console.log(err);
@@ -37,18 +37,16 @@ const Connections = () => {
           return (
             <div key={_id} className="flex justify-center">
               <div className="m-4 p-4 rounded-sm flex gap-4 items-center justify-center bg-base-300">
-                <img
-                  alt="image"
-                  src={photoUrl}
-                  className="w-20 h-20 rounded-full"
-                />
-                <div>
+                <img alt="image" src={photoUrl} className="w-30 h-30 " />
+                <div className="w-3/4">
                   <h2 className="text-lg font-bold">
                     {firstName + " " + lastName}
                   </h2>
-                  <p className="font-semibold text-base">
-                    {age + " " + gender}
-                  </p>
+                  {age && gender && (
+                    <p className="font-semibold text-base">
+                      {age + " " + gender}
+                    </p>
+                  )}
                   <p>{about}</p>
                 </div>
               </div>
