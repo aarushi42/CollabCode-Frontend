@@ -31,11 +31,11 @@ const Connections = () => {
 
       {connections &&
         connections.map((connection) => {
-          const { firstName, lastName, photoUrl, age, gender, about } =
+          const { _id, firstName, lastName, photoUrl, age, gender, about } =
             connection;
 
           return (
-            <div className="flex justify-center">
+            <div key={_id} className="flex justify-center">
               <div className="m-4 p-4 rounded-sm flex gap-4 items-center justify-center bg-base-300">
                 <img
                   alt="image"
