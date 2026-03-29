@@ -1,1 +1,1 @@
-## This is dev tinder, to connect developers
+CollabCode is a platform that connects developers worldwide to collaborate, build projects, and grow together.
