@@ -70,9 +70,9 @@ const Chat = () => {
   };
 
   return (
-    <div className="w-1/2 mx-auto border border-grey-600 h-[70vh]">
-      <h1 className="p-5 border-b border-gray-600">Chat</h1>
-      <div className="flex-1 overflow-scroll p-5">
+    <div className="w-1/2 mx-auto border border-gray-600 h-[70vh] flex flex-col overflow-hidden">
+      <h1 className="p-5 border-b border-gray-600 shrink-0">Chat</h1>
+      <div className="flex-1 overflow-y-auto p-5 min-h-0">
         {messages.map((msg, index) => {
           return (
             <div key={index}>
@@ -89,13 +89,13 @@ const Chat = () => {
           );
         })}
       </div>
-      <div className="p-5 flex items-center border-garay-600">
+      <div className="p-5 flex items-center gap-3 border-t border-gray-600 shrink-0 bg-base-300">
         <input
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="flex-1 text-white bg-gray-600"
+          className="input input-bordered flex-1 bg-gray-600 text-white"
         ></input>
-        <button onClick={sendMessage} className="btn btn-secondary">
+        <button onClick={sendMessage} className="btn btn-secondary shrink-0">
           Send
         </button>
       </div>
