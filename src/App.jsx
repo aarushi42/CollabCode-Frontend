@@ -8,6 +8,10 @@ import Feed from "./components/Feed";
 import Connections from "./components/Connections";
 import Request from "./components/Request";
 import Chat from "./components/Chat";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
+import RefundPolicy from "./pages/RefundPolicy";
+import Disclaimer from "./pages/Disclaimer";
 
 function App() {
   return (
@@ -22,6 +26,10 @@ function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/request" element={<Request />} />
               <Route path="/chat/:targetUserId" element={<Chat />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/refund-policy" element={<RefundPolicy />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
             </Route>
           </Routes>
         </BrowserRouter>
