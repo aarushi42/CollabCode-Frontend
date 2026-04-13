@@ -54,8 +54,6 @@ const Terms = () => {
           For any questions, feedback, or issues, contact us at
           support@collabcode.in.
         </p>
-
-        <p>© 2026 CollabCode. All Rights Reserved.</p>
       </div>
     </main>
   );

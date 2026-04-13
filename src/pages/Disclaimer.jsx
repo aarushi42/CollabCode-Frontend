@@ -53,8 +53,6 @@ const Disclaimer = () => {
           For any concerns or questions regarding this disclaimer, please
           contact us at support@collabcode.in
         </p>
-
-        <p>© 2026 CollabCode. All Rights Reserved.</p>
       </div>
     </main>
   );
