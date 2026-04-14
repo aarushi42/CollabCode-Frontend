@@ -27,13 +27,43 @@ const Feed = () => {
 
   if (!feed) return;
 
-  if (feed.length <= 0) return <h1>No more user found</h1>;
+  if (feed.length <= 0) {
+    return (
+      <div className="mx-auto my-16 max-w-3xl px-4 text-center">
+        <h1 className="cc-title text-3xl font-bold text-white">
+          No more users found
+        </h1>
+        <p className="mt-3 text-[#9baad6]">
+          You have discovered everyone for now. Check back soon for fresh
+          collaborators.
+        </p>
+      </div>
+    );
+  }
 
   return (
     feed && (
-      <div className="flex justify-center my-10">
-        <UserCard user={feed[0]} />
-      </div>
+      <main className="mx-auto w-full max-w-7xl px-4 pb-16 pt-12">
+        <section className="mb-10 text-center">
+          <div className="inline-flex items-center rounded-full border border-[#2f4270] bg-[#142449]/50 px-4 py-1.5">
+            <span className="mr-2 inline-flex h-2 w-2 rounded-full bg-[#ff67ad]" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#ffb0cd]">
+              Active Collaborators Nearby
+            </span>
+          </div>
+          <h1 className="cc-title mt-6 text-4xl font-extrabold tracking-tight text-white md:text-6xl">
+            Build your <span className="text-[#ffb0cd]">Dream Team</span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[#9baad6]">
+            Swipe through builders ready to ship production-grade products with
+            you.
+          </p>
+        </section>
+
+        <section className="flex justify-center">
+          <UserCard user={feed[0]} />
+        </section>
+      </main>
     )
   );
 };

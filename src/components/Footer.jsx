@@ -3,39 +3,48 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="mt-16 bg-gradient-to-r from-[#0f1724] to-[#101a2b] text-white">
-      <div className="max-w-7xl mx-auto px-6 md:px-10 py-10 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16">
+    <footer className="mt-20 border-t border-[#20345d] bg-[#08142d]/80 text-white backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-14">
+        <div className="mb-10 flex items-center justify-between gap-4 border-b border-[#20345d] pb-6">
+          <h2 className="cc-title text-2xl font-extrabold tracking-tight text-white md:text-3xl">
+            Build with the right collaborators.
+          </h2>
+          <span className="rounded-full border border-[#334977] bg-[#142449]/60 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#b8c7f1]">
+            CollabCode
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
           <div>
-            <h3 className="text-[#8b97a8] text-xs tracking-[0.18em] font-semibold uppercase mb-4">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#9baad6]">
               Services
             </h3>
-            <ul className="space-y-2.5 text-base md:text-lg leading-relaxed font-medium text-white/95">
-              <li className="hover:text-white transition-colors">
+            <ul className="space-y-2.5 text-base font-medium leading-relaxed text-[#d8e2ff] md:text-lg">
+              <li className="transition-colors hover:text-white">
                 Developer Matchmaking
               </li>
-              <li className="hover:text-white transition-colors">
+              <li className="transition-colors hover:text-white">
                 Portfolio Showcase
               </li>
-              <li className="hover:text-white transition-colors">
+              <li className="transition-colors hover:text-white">
                 Team Collaboration
               </li>
-              <li className="hover:text-white transition-colors">
+              <li className="transition-colors hover:text-white">
                 Premium Membership
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-[#8b97a8] text-xs tracking-[0.18em] font-semibold uppercase mb-4">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#9baad6]">
               Company
             </h3>
-            <ul className="space-y-2.5 text-base md:text-lg leading-relaxed font-medium text-white/95">
-              <li className="hover:text-white transition-colors">About us</li>
+            <ul className="space-y-2.5 text-base font-medium leading-relaxed text-[#d8e2ff] md:text-lg">
+              <li className="transition-colors hover:text-white">About us</li>
               <li>
                 <a
                   href="mailto:support@collabcode.in"
-                  className="hover:underline underline-offset-4 transition-all"
+                  className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Contact
                 </a>
@@ -44,14 +53,14 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-[#8b97a8] text-xs tracking-[0.18em] font-semibold uppercase mb-4">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#9baad6]">
               Legal
             </h3>
-            <ul className="space-y-2.5 text-base md:text-lg leading-relaxed font-medium text-white/95">
+            <ul className="space-y-2.5 text-base font-medium leading-relaxed text-[#d8e2ff] md:text-lg">
               <li>
                 <Link
                   to="/privacy-policy"
-                  className="hover:underline underline-offset-4 transition-all"
+                  className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Privacy policy
                 </Link>
@@ -59,7 +68,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/terms"
-                  className="hover:underline underline-offset-4 transition-all"
+                  className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Terms of use
                 </Link>
@@ -67,7 +76,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/disclaimer"
-                  className="hover:underline underline-offset-4 transition-all"
+                  className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Disclaimer
                 </Link>
@@ -75,7 +84,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/refund-policy"
-                  className="hover:underline underline-offset-4 transition-all"
+                  className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Refund &amp; Cancellation Policy
                 </Link>
@@ -84,7 +93,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-5 border-t border-white/10 text-xs md:text-sm text-white/60">
+        <div className="mt-8 border-t border-[#20345d] pt-5 text-xs text-[#8ea0cf] md:text-sm">
           © {new Date().getFullYear()} CollabCode. All Rights Reserved.
         </div>
       </div>

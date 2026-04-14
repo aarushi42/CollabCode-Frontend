@@ -1,2 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap");
+
 @import "tailwindcss";
 @plugin "daisyui";
+
+:root {
+  --cc-bg: #060e20;
+  --cc-surface: #0c1934;
+  --cc-surface-high: #142449;
+  --cc-outline: #38476d;
+  --cc-text: #dee5ff;
+  --cc-text-muted: #9baad6;
+  --cc-primary: #c180ff;
+  --cc-primary-dim: #9c48ea;
+  --cc-secondary: #699cff;
+  --cc-tertiary: #ffb0cd;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 90% -10%,
+      rgba(193, 128, 255, 0.2),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at -10% 110%,
+      rgba(105, 156, 255, 0.2),
+      transparent 45%
+    ),
+    var(--cc-bg);
+  color: var(--cc-text);
+  font-family: "Inter", sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.cc-title {
+  font-family: "Manrope", sans-serif;
+}
+
+.cc-glass {
+  background: rgba(20, 36, 73, 0.45);
+  border: 1px solid rgba(155, 170, 214, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.cc-primary-btn {
+  background: linear-gradient(135deg, var(--cc-primary-dim), var(--cc-primary));
+  color: #18072d;
+}
+
+.cc-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.cc-scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

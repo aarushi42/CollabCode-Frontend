@@ -4,6 +4,31 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest, removeRequest } from "../utils/requestSlice";
 
+const getSkills = (candidate) => {
+  const rawSkills =
+    candidate?.skills ??
+    candidate?.skill ??
+    candidate?.techStack ??
+    candidate?.techStacks ??
+    candidate?.techSkills;
+
+  if (Array.isArray(rawSkills)) {
+    return rawSkills
+      .filter(Boolean)
+      .map((item) => String(item).trim())
+      .filter(Boolean);
+  }
+
+  if (typeof rawSkills === "string") {
+    return rawSkills
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+};
+
 const Request = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.requests);
@@ -36,45 +61,90 @@ const Request = () => {
     fetchRequest();
   }, []);
 
-  console.log(requests);
-
-  if (requests?.length === 0) return <h1>No RequestFound</h1>;
+  if (requests?.length === 0) {
+    return (
+      <div className="mx-auto my-16 max-w-3xl px-4 text-center">
+        <h1 className="cc-title text-3xl font-bold text-white">
+          No Requests Found
+        </h1>
+        <p className="mt-3 text-[#9baad6]">
+          No pending collaborator requests right now.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <div className=" my-10">
-        <h1 className="font-bold text-2xl text-center">Requests</h1>
+    <main className="mx-auto max-w-4xl space-y-8 px-4 pb-16 pt-12">
+      <div className="space-y-2">
+        <h1 className="cc-title px-2 text-4xl font-extrabold tracking-tight text-white">
+          Connection <span className="text-[#c180ff]">Requests</span>
+        </h1>
+        <p className="px-2 text-[#9baad6]">
+          Review developers who want to collaborate on your projects.
+        </p>
+      </div>
 
+      <div className="space-y-4">
         {requests &&
           requests.map((request) => {
             const { _id, firstName, lastName, photoUrl, age, gender, about } =
               request.fromUserId;
+            const skills = getSkills(request?.fromUserId);
 
             return (
-              <div key={_id} className="flex justify-center">
-                <div className="m-4 p-4 rounded-sm flex gap-4 items-center justify-center bg-base-300 w-2/4">
-                  <img alt="image" src={photoUrl} className="1/4 h-40 " />
-                  <div className="flex">
-                    <div className="w-3/4">
-                      <h2 className="text-lg font-bold">
-                        {firstName + " " + lastName}
-                      </h2>
+              <article
+                key={_id}
+                className="cc-glass rounded-2xl p-5 transition-colors hover:bg-[#142449]/70"
+              >
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                  <img
+                    alt="profile"
+                    src={photoUrl}
+                    className="h-16 w-16 rounded-full border-2 border-[#2f4270] object-cover"
+                  />
+
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between gap-3">
+                      <h3 className="cc-title text-xl font-bold text-white">
+                        {firstName} {lastName}
+                      </h3>
                       {age && gender && (
-                        <p className="font-semibold text-base">
-                          {age + " " + gender}
-                        </p>
+                        <span className="rounded-full bg-[#002455] px-3 py-1 text-xs font-semibold text-[#74a3ff]">
+                          {age} {gender}
+                        </span>
                       )}
-                      <p>{about}</p>
                     </div>
-                    <div className="flex flex-col mx-4 gap-4">
+                    <p className="mt-2 text-sm leading-relaxed text-[#9baad6]">
+                      {about}
+                    </p>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {skills.length > 0 ? (
+                        skills.slice(0, 4).map((skill) => (
+                          <span
+                            key={`${_id}-${skill}`}
+                            className="rounded-full bg-[#002f78] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#9ec0ff]"
+                          >
+                            {skill}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-xs font-medium text-[#7d8fbe]">
+                          Skills not listed
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="mt-5 flex gap-3">
                       <button
-                        className="btn btn-primary "
+                        className="w-full rounded-xl border border-[#38476d] bg-[#142449] px-4 py-3 text-sm font-semibold text-[#9baad6] transition-colors hover:text-white"
                         onClick={() => reviewRequest("rejected", request._id)}
                       >
                         Ignore
                       </button>
                       <button
-                        className="btn btn-secondary"
+                        className="cc-primary-btn w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
                         onClick={() => reviewRequest("accepted", request._id)}
                       >
                         Accept
@@ -82,11 +152,11 @@ const Request = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -6,8 +6,9 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
-const Chat = () => {
-  const { targetUserId } = useParams();
+const Chat = ({ targetUserId: selectedTargetUserId, targetUserName }) => {
+  const { targetUserId: paramTargetUserId } = useParams();
+  const targetUserId = selectedTargetUserId || paramTargetUserId;
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const user = useSelector((store) => store.user);
@@ -16,11 +17,11 @@ const Chat = () => {
   const lastName = user?.lastName;
 
   const fetchChatMessages = async () => {
+    if (!targetUserId) return;
     const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
       withCredentials: true,
     });
 
-    console.log(chat.data.messages);
     const chatMessages = chat?.data?.messages.map((msg) => {
       const { senderId, text } = msg;
       return {
@@ -33,19 +34,17 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    if (!targetUserId) return;
     fetchChatMessages();
-  }, []);
+  }, [targetUserId]);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId || !targetUserId) return;
 
     const socket = createConnectionSocket();
-    //creating a connection
-    console.log("connected");
     socket.emit("joinChat", { userId, targetUserId });
 
     socket.on("messageReceived", ({ firstName, lastName, text }) => {
-      console.log(firstName + text);
       setMessages((prevMessages) => [
         ...prevMessages,
         { firstName, lastName, text },
@@ -58,6 +57,7 @@ const Chat = () => {
   }, [userId, targetUserId]);
 
   const sendMessage = () => {
+    if (!newMessage.trim() || !targetUserId) return;
     const socket = createConnectionSocket();
     socket.emit("sendMessage", {
       firstName,
@@ -69,33 +69,60 @@ const Chat = () => {
     setNewMessage("");
   };
 
+  if (!targetUserId) return null;
+
   return (
-    <div className="w-1/2 mx-auto border border-gray-600 h-[70vh] flex flex-col overflow-hidden">
-      <h1 className="p-5 border-b border-gray-600 shrink-0">Chat</h1>
-      <div className="flex-1 overflow-y-auto p-5 min-h-0">
+    <div className="flex h-full min-h-[420px] flex-col overflow-hidden rounded-[30px] border border-[#2a3e6a] bg-[#0e1b37]/60 backdrop-blur-lg">
+      <div className="flex items-center justify-between border-b border-[#2a3e6a] bg-[#142449]/70 px-6 py-4">
+        <h1 className="cc-title text-xl font-bold text-white">
+          {targetUserName || "Conversation"}
+        </h1>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9baad6]">
+          Live Chat
+        </p>
+      </div>
+
+      <div className="cc-scrollbar-hide flex-1 space-y-4 overflow-y-auto p-6">
         {messages.map((msg, index) => {
+          const isMine = user?.firstName === msg.firstName;
           return (
-            <div key={index}>
+            <div
+              key={index}
+              className={`flex ${isMine ? "justify-end" : "justify-start"}`}
+            >
               <div
-                className={`chat ${
-                  user?.firstName === msg.firstName ? "chat-end" : "chat-start"
+                className={`max-w-[78%] rounded-2xl px-4 py-3 text-sm shadow-lg ${
+                  isMine
+                    ? "bg-gradient-to-r from-[#9c48ea] to-[#c180ff] text-[#12031f]"
+                    : "border border-[#344a77] bg-[#142449] text-[#dbe4ff]"
                 }`}
               >
-                <div className="chat-header">{`${msg.firstName} ${msg.lastName}`}</div>
-                <div className="chat-bubble">{msg.text}</div>
-                <div className="chat-footer opacity-50">Delivered</div>
+                <p className="mb-1 text-[11px] font-bold uppercase tracking-wide opacity-75">
+                  {msg.firstName} {msg.lastName}
+                </p>
+                <p className="leading-relaxed">{msg.text}</p>
               </div>
             </div>
           );
         })}
       </div>
-      <div className="p-5 flex items-center gap-3 border-t border-gray-600 shrink-0 bg-base-300">
+
+      <div className="flex items-center gap-3 border-t border-[#2a3e6a] bg-[#0f1d3a] p-4">
         <input
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="input input-bordered flex-1 bg-gray-600 text-white"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          }}
+          className="w-full rounded-xl border border-[#334977] bg-[#142449]/50 px-4 py-3 text-sm text-[#dee5ff] outline-none placeholder:text-[#8495c4] focus:border-[#c180ff]"
+          placeholder="Type a message..."
         ></input>
-        <button onClick={sendMessage} className="btn btn-secondary shrink-0">
+        <button
+          onClick={sendMessage}
+          className="cc-primary-btn shrink-0 rounded-xl px-5 py-3 text-sm font-bold"
+        >
           Send
         </button>
       </div>
