@@ -27,7 +27,7 @@ const Navbar = () => {
           to="/"
           className="cc-title flex items-center gap-3 text-3xl font-extrabold text-white"
         >
-          <span className="text-xl text-[#c180ff]">⌘</span>
+          <span className="text-xl text-[#c180ff]">👩‍💻</span>
           <span>CollabCode</span>
         </Link>
 
