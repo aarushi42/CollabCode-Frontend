@@ -8,37 +8,38 @@ const Disclaimer = () => {
         <p className="font-medium">Last Updated: April 2026</p>
 
         <p>
-          The information provided on CollabCode (“the Platform”) is for general
-          informational and networking purposes only. While we strive to ensure
-          accuracy and reliability of the content, CollabCode makes no
-          warranties or representations regarding its completeness or
-          suitability for any purpose.
+          The content and services provided on CollabCode (“the Platform”) are
+          intended for general informational and networking purposes only. While
+          we aim to keep the information accurate and up to date, we do not
+          guarantee its completeness, reliability, or suitability for any
+          specific purpose.
         </p>
 
         <h2 className="text-xl font-semibold">1. No Professional Advice</h2>
         <p>
-          CollabCode is a developer networking platform, not a professional
-          consulting service. Any collaboration, mentorship, or project
-          partnership between users is entirely at their own discretion. We do
-          not endorse or guarantee the quality or outcome of such interactions.
+          CollabCode is designed as a platform for developers to connect and
+          collaborate. It does not offer professional consulting services of any
+          kind. Any decisions regarding collaborations, mentorships, or project
+          partnerships are made at the user’s own discretion. We do not verify,
+          endorse, or guarantee the outcomes of such interactions.
         </p>
 
         <h2 className="text-xl font-semibold">
           2. External Links & Third-Party Content
         </h2>
         <p>
-          The Platform may contain links to third-party websites or services.
-          These links are provided for convenience only, and CollabCode is not
-          responsible for the content, privacy policies, or practices of those
-          external platforms.
+          The Platform may include links to external websites or services for
+          user convenience. CollabCode has no control over these third-party
+          platforms and is not responsible for their content, policies, or
+          practices. Accessing such links is entirely at your own risk.
         </p>
 
         <h2 className="text-xl font-semibold">3. User Responsibility</h2>
         <p>
-          Users are solely responsible for the information they share and the
-          connections they make on the Platform. CollabCode is not liable for
-          any damages, disputes, or losses arising from user interactions or
-          collaborations.
+          All users are responsible for the information they share and the
+          connections they choose to make. CollabCode is not liable for any
+          issues, disputes, or damages that may arise from user interactions,
+          communications, or collaborations.
         </p>
 
         <h2 className="text-xl font-semibold">4. Limitation of Liability</h2>

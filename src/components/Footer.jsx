@@ -21,13 +21,13 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2.5 text-base font-medium leading-relaxed text-[#d8e2ff] md:text-lg">
               <li className="transition-colors hover:text-white">
-                Developer Matchmaking
+                Find Collaborators
               </li>
               <li className="transition-colors hover:text-white">
-                Portfolio Showcase
+                Show off your skills
               </li>
               <li className="transition-colors hover:text-white">
-                Team Collaboration
+                Create and work on projects together
               </li>
               <li className="transition-colors hover:text-white">
                 Premium Membership

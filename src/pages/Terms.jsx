@@ -14,39 +14,49 @@ const Terms = () => {
 
         <h2 className="text-xl font-semibold">1. Use of Platform</h2>
         <p>
-          CollabCode is a connecting platform built to help developers,
-          creators, and professionals network with each other. Users of all age
-          groups are welcome to join. However, minors (below 18) are encouraged
-          to use the platform under the guidance of a parent, guardian, or
-          teacher for a safe experience.
+          CollabCode is designed to help developers, creators, and professionals
+          connect, collaborate, and grow their networks. The platform is open to
+          users of all age groups. However, users under the age of 18 are
+          advised to use the platform under the supervision of a parent,
+          guardian, or educator to ensure a safe experience.
         </p>
 
         <h2 className="text-xl font-semibold">2. Account Responsibility</h2>
         <p>
-          You are responsible for maintaining the confidentiality of your
-          account and for all activities that occur under your login. Please
-          ensure that the information provided is accurate and kept up to date.
+          You are responsible for safeguarding your account credentials and for
+          all activities carried out under your account. It is your
+          responsibility to ensure that the information you provide is accurate,
+          complete, and regularly updated.
         </p>
 
         <h2 className="text-xl font-semibold">3. Premium Membership</h2>
         <p>
-          Payments made for premium features or upgrades are governed by our
-          Refund and Cancellation Policy.
+          Any payments made for premium features, subscriptions, or upgrades are
+          subject to our Refund and Cancellation Policy. Users are advised to
+          review those terms before making a purchase.
         </p>
 
         <h2 className="text-xl font-semibold">4. Prohibited Activities</h2>
         <p>
-          Users must not create fake profiles, engage in harassment, spamming,
-          or participate in any illegal activities. Respectful and professional
-          communication is expected from all users on CollabCode.
+          By using CollabCode, you agree not to:
+          <ul>
+            <li>Create or use fake or misleading profiles</li>
+            <li>Engage in harassment, abuse, or harmful behavior</li>
+            <li>Spam or distribute unwanted content</li>
+            <li>Participate in any unlawful or unethical activities </li>
+          </ul>
+          All users are expected to maintain respectful and professional
+          communication at all times.
         </p>
 
-        <h2 className="text-xl font-semibold">5. Liability</h2>
+        <h2 className="text-xl font-semibold">
+          5. Limitation of Responsibility
+        </h2>
         <p>
-          CollabCode is not responsible for any user-generated content, user
-          interactions, or third-party services linked through the platform.
-          Users are encouraged to connect responsibly and exercise caution when
-          sharing personal information.
+          CollabCode does not take responsibility for user-generated content,
+          interactions between users, or any third-party services linked through
+          the platform. Users are advised to exercise discretion and caution,
+          especially when sharing personal or sensitive information.
         </p>
 
         <h2 className="text-xl font-semibold">6. Contact Us</h2>

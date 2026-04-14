@@ -8,50 +8,59 @@ const PrivacyPolicy = () => {
         <p className="font-medium">Last Updated: April 2026</p>
 
         <p>
-          At CollabCode, we value your privacy and are committed to protecting
-          your personal information. This Privacy Policy explains how we
-          collect, use, and safeguard your data when you use our platform.
+          At CollabCode, protecting your privacy is important to us. This
+          Privacy Policy outlines how we collect, use, and safeguard your
+          personal information when you interact with our platform.
         </p>
 
         <h2 className="text-xl font-semibold">1. Information We Collect</h2>
         <p>
-          We collect basic details such as your name, email address, and profile
-          information to help facilitate networking and collaboration between
-          users on our platform.
+          We collect essential information such as your name, email address, and
+          basic profile details. This helps us enable meaningful connections and
+          collaboration between users.
         </p>
 
         <h2 className="text-xl font-semibold">2. Cookies</h2>
         <p>
-          We use cookies and similar technologies to enhance your experience,
-          analyze usage patterns, and personalize content. You can manage or
+          We use cookies and similar technologies to improve your experience,
+          understand user behavior, and customize content. You can choose to
           disable cookies anytime through your browser settings.
         </p>
 
         <h2 className="text-xl font-semibold">3. Data Usage</h2>
         <p>
-          The information you provide is used solely for delivering platform
-          services, improving functionality, and maintaining a safe community
-          environment. We never sell or misuse your personal data.
+          Your information is used to:
+          <ul>
+            <li>Provide and maintain platform services</li>
+            <li>Enhance user experience and platform features</li>
+            <li>Ensure a safe and secure community</li>
+          </ul>
+          We strictly do not sell or exploit your personal data.
         </p>
 
         <h2 className="text-xl font-semibold">4. Data Protection</h2>
         <p>
-          Your data is securely stored, and we do not share or disclose it to
-          third parties without your explicit consent — except when required by
-          law or essential service operations.
+          We take appropriate measures to keep your data secure. Your
+          information is not shared with third parties without your consent,
+          except when required by law or necessary for core service operations.
         </p>
 
         <h2 className="text-xl font-semibold">5. Your Rights</h2>
         <p>
-          You have the right to access, update, or delete your personal data. To
-          request data deletion or raise privacy-related concerns, contact us at
-          support@collabcode.in.
+          You have full control over your data. You can:
+          <ul>
+            <li>Access your information</li>
+            <li>Update or correct your details</li>
+            <li>Request deletion of your data</li>
+          </ul>
+          For any such requests or privacy concerns, contact us at: 📧
+          support@collabcode.in
         </p>
 
         <h2 className="text-xl font-semibold">6. Consent</h2>
         <p>
-          By using our platform, you consent to this Privacy Policy and the
-          collection and use of your information as described here.
+          By using CollabCode, you agree to the terms outlined in this Privacy
+          Policy and the way your information is handled.
         </p>
       </div>
     </main>

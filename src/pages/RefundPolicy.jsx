@@ -23,16 +23,17 @@ const RefundPolicy = () => {
 
         <h2 className="text-xl font-semibold">Technical Issues</h2>
         <p>
-          In case of accidental double payments or verified technical errors,
-          eligible refunds will be processed within 7 working days of
-          confirmation. Our team may request supporting details to validate the
-          issue.
+          In cases of duplicate payments or confirmed technical errors, refunds
+          may be considered. Eligible refunds will be processed within 7 working
+          days after verification. Our team may request additional details or
+          proof to validate such claims.
         </p>
 
         <h2 className="text-xl font-semibold">Contact</h2>
         <p>
-          For refund-related queries or issues, please contact us at
-          support@collabcode Our support team will respond as soon as possible.
+          For any refund-related questions or concerns, please contact us at: 📧
+          support@collabcode.in Our support team will review your request and
+          respond as promptly as possible.
         </p>
       </div>
     </main>
