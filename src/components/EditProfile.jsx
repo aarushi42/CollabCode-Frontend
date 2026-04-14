@@ -31,6 +31,28 @@ const getSkills = (candidate) => {
   return [];
 };
 
+const getSkillFieldKey = (candidate) => {
+  if (!candidate || typeof candidate !== "object") return "skills";
+
+  if (Object.prototype.hasOwnProperty.call(candidate, "skills")) {
+    return "skills";
+  }
+  if (Object.prototype.hasOwnProperty.call(candidate, "skill")) {
+    return "skill";
+  }
+  if (Object.prototype.hasOwnProperty.call(candidate, "techStack")) {
+    return "techStack";
+  }
+  if (Object.prototype.hasOwnProperty.call(candidate, "techStacks")) {
+    return "techStacks";
+  }
+  if (Object.prototype.hasOwnProperty.call(candidate, "techSkills")) {
+    return "techSkills";
+  }
+
+  return "skills";
+};
+
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
@@ -39,6 +61,7 @@ const EditProfile = ({ user }) => {
   const [gender, setGender] = useState(user.gender || "");
   const [about, setAbout] = useState(user.about);
   const [skills, setSkills] = useState(getSkills(user));
+  const skillFieldKey = getSkillFieldKey(user);
   const [skillInput, setSkillInput] = useState("");
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
@@ -62,31 +85,45 @@ const EditProfile = ({ user }) => {
 
   const saveProfile = async () => {
     setError("");
+    const trimmedSkills = skills.map((item) => item.trim()).filter(Boolean);
+    const normalizedAge = age === "" ? undefined : Number(age);
+
+    if (age !== "" && Number.isNaN(normalizedAge)) {
+      setError("Age must be a valid number");
+      return;
+    }
+
+    const payload = {
+      firstName,
+      lastName,
+      about,
+      age: normalizedAge,
+      gender,
+      photoUrl,
+      [skillFieldKey]: trimmedSkills,
+    };
+
     try {
-      const res = await axios.patch(
-        BASE_URL + "/profile/edit",
-        {
-          firstName,
-          lastName,
-          about,
-          age,
-          gender,
-          photoUrl,
+      const res = await axios.patch(BASE_URL + "/profile/edit", payload, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      dispatch(addUser(res.data.data));
+      });
+      const updatedUser = res?.data?.data ?? res?.data;
+      if (updatedUser) {
+        dispatch(addUser(updatedUser));
+      }
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
       }, 3000);
     } catch (err) {
-      setError(err?.response?.data);
+      setError(
+        err?.response?.data?.message ||
+          err?.response?.data ||
+          "Unable to save profile right now",
+      );
     }
   };
 
