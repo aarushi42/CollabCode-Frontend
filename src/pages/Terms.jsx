@@ -40,10 +40,10 @@ const Terms = () => {
         <p>
           By using CollabCode, you agree not to:
           <ul>
-            <li>Create or use fake or misleading profiles</li>
-            <li>Engage in harassment, abuse, or harmful behavior</li>
-            <li>Spam or distribute unwanted content</li>
-            <li>Participate in any unlawful or unethical activities </li>
+            <li>1. Create or use fake or misleading profiles</li>
+            <li>2. Engage in harassment, abuse, or harmful behavior</li>
+            <li>3. Spam or distribute unwanted content</li>
+            <li>4. Participate in any unlawful or unethical activities </li>
           </ul>
           All users are expected to maintain respectful and professional
           communication at all times.

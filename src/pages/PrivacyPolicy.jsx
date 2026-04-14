@@ -31,9 +31,9 @@ const PrivacyPolicy = () => {
         <p>
           Your information is used to:
           <ul>
-            <li>Provide and maintain platform services</li>
-            <li>Enhance user experience and platform features</li>
-            <li>Ensure a safe and secure community</li>
+            <li>1. Provide and maintain platform services</li>
+            <li>2. Enhance user experience and platform features</li>
+            <li>3. Ensure a safe and secure community</li>
           </ul>
           We strictly do not sell or exploit your personal data.
         </p>
@@ -49,9 +49,9 @@ const PrivacyPolicy = () => {
         <p>
           You have full control over your data. You can:
           <ul>
-            <li>Access your information</li>
-            <li>Update or correct your details</li>
-            <li>Request deletion of your data</li>
+            <li>1. Access your information</li>
+            <li>2. Update or correct your details</li>
+            <li>3. Request deletion of your data</li>
           </ul>
           For any such requests or privacy concerns, contact us at: 📧
           support@collabcode.in
