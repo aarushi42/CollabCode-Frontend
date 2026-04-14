@@ -2,7 +2,7 @@ import React from "react";
 
 const RefundPolicy = () => {
   return (
-    <main className="min-h-screen bg-base-200 text-base-content px-4 py-10 pb-28">
+    <main className="px-4 py-10 text-[#d8e2ff]">
       <div className="max-w-4xl mx-auto space-y-4">
         <h1 className="text-3xl font-bold">Refund Policy</h1>
         <p className="font-medium">Last Updated: April 2026</p>
