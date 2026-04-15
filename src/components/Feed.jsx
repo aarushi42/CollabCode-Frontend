@@ -55,7 +55,7 @@ const Feed = () => {
             Build your <span className="text-[#ffb0cd]">Dream Team</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[#9baad6]">
-            Swipe through builders ready to ship production-grade products with
+            Connect to developers ready to ship production-grade projects with
             you.
           </p>
         </section>
