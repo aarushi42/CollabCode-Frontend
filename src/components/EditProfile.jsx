@@ -88,6 +88,11 @@ const EditProfile = ({ user }) => {
     const trimmedSkills = skills.map((item) => item.trim()).filter(Boolean);
     const normalizedAge = age === "" ? undefined : Number(age);
 
+    if (!gender) {
+      setError("Gender is required");
+      return;
+    }
+
     if (age !== "" && Number.isNaN(normalizedAge)) {
       setError("Age must be a valid number");
       return;
@@ -215,12 +220,19 @@ const EditProfile = ({ user }) => {
                   <label className="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-[#9baad6]">
                     Gender
                   </label>
-                  <input
-                    type="text"
+                  <select
                     className="w-full rounded-xl border border-[#334977] bg-[#142449]/50 p-3 text-sm text-[#dee5ff] outline-none focus:border-[#c180ff]"
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                  />
+                    required
+                  >
+                    <option value="" disabled>
+                      Select gender
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
             </div>

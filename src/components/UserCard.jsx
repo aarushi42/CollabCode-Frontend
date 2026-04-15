@@ -106,7 +106,7 @@ const UserCard = ({ user, showActions = true }) => {
               className="cc-primary-btn w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20 transition-transform active:scale-95"
               onClick={() => handleSendRequest("interested", _id)}
             >
-              Interested
+              Connect
             </button>
           </div>
         )}

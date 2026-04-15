@@ -28,6 +28,7 @@ const Chat = ({ targetUserId: selectedTargetUserId, targetUserName }) => {
         firstName: senderId?.firstName,
         lastName: senderId?.lastName,
         text: text,
+        msgSenderId: senderId?._id,
       };
     });
     setMessages(chatMessages);
@@ -84,7 +85,9 @@ const Chat = ({ targetUserId: selectedTargetUserId, targetUserName }) => {
 
       <div className="cc-scrollbar-hide flex-1 space-y-4 overflow-y-auto p-6">
         {messages.map((msg, index) => {
-          const isMine = user?.firstName === msg.firstName;
+          const isMine = userId === msg?.msgSenderId;
+          console.log(msg?.msgSenderId);
+          console.log(isMine);
           return (
             <div
               key={index}

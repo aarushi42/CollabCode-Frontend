@@ -2,8 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const handleFooterLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="mt-20 border-t border-[#20345d] bg-[#08142d]/80 text-white backdrop-blur-xl">
+    <footer className="border-t border-[#20345d] bg-[#08142d]/80 text-white backdrop-blur-xl mt-auto">
       <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-14">
         <div className="mb-10 flex items-center justify-between gap-4 border-b border-[#20345d] pb-6">
           <h2 className="cc-title text-2xl font-extrabold tracking-tight text-white md:text-3xl">
@@ -60,6 +64,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/privacy-policy"
+                  onClick={handleFooterLinkClick}
                   className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Privacy policy
@@ -68,6 +73,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/terms"
+                  onClick={handleFooterLinkClick}
                   className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Terms of use
@@ -76,6 +82,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/disclaimer"
+                  onClick={handleFooterLinkClick}
                   className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Disclaimer
@@ -84,6 +91,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/refund-policy"
+                  onClick={handleFooterLinkClick}
                   className="transition-all hover:text-white hover:underline hover:underline-offset-4"
                 >
                   Refund &amp; Cancellation Policy
