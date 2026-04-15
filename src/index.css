@@ -62,3 +62,47 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.cc-scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cc-scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cc-scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(193, 128, 255, 0.4);
+  border-radius: 3px;
+}
+
+.cc-scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(193, 128, 255, 0.6);
+}
+
+.cc-scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(193, 128, 255, 0.4) transparent;
+}
+
+.cc-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    100deg,
+    rgba(76, 96, 146, 0.28) 15%,
+    rgba(129, 153, 216, 0.36) 35%,
+    rgba(76, 96, 146, 0.28) 55%
+  );
+  background-size: 250% 100%;
+  animation: cc-shimmer-wave 1.3s ease-in-out infinite;
+}
+
+@keyframes cc-shimmer-wave {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}

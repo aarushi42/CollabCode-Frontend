@@ -4,28 +4,45 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
+import { FeedShimmer } from "./Shimmer";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const dispatch = useDispatch();
-  const getFeed = async () => {
-    if (feed) return;
-    try {
-      const res = await axios.get(BASE_URL + "/feed", {
-        withCredentials: true,
-      });
-      dispatch(addFeed(res.data));
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
-    getFeed();
-  }, []);
+    let isCancelled = false;
 
-  if (!feed) return;
+    const getFeed = async () => {
+      if (feed) {
+        if (!isCancelled) setIsLoading(false);
+        return;
+      }
+
+      try {
+        const res = await axios.get(BASE_URL + "/feed", {
+          withCredentials: true,
+        });
+        if (!isCancelled) {
+          dispatch(addFeed(res.data));
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        if (!isCancelled) setIsLoading(false);
+      }
+    };
+
+    getFeed();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [dispatch, feed]);
+
+  if (isLoading || !feed) return <FeedShimmer />;
 
   if (feed.length <= 0) {
     return (

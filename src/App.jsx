@@ -24,9 +24,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "./utils/constants";
 import { addUser } from "./utils/userSlice";
+import { FeedShimmer } from "./components/Shimmer";
 
-function RootPage() {
+function RootPage({ isAuthChecked }) {
   const user = useSelector((store) => store.user);
+
+  if (!isAuthChecked) {
+    return <FeedShimmer />;
+  }
+
   return user ? <Feed /> : <Home />;
 }
 
@@ -89,7 +95,10 @@ function AppRoutes() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Body />}>
-          <Route path="/" element={<RootPage />} />
+          <Route
+            path="/"
+            element={<RootPage isAuthChecked={isAuthChecked} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route
             path="/profile"

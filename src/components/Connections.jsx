@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 import Chat from "./Chat";
+import { ConnectionsShimmer } from "./Shimmer";
 
 const getSkills = (candidate) => {
   const rawSkills =
@@ -35,9 +36,11 @@ const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connections);
   const [selectedConnection, setSelectedConnection] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchConnecions = async () => {
+      setIsLoading(true);
       try {
         const res = await axios.get(BASE_URL + "/user/connections", {
           withCredentials: true,
@@ -45,11 +48,17 @@ const Connections = () => {
         dispatch(addConnections(res.data));
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchConnecions();
   }, [dispatch]);
+
+  if (isLoading || !connections) {
+    return <ConnectionsShimmer />;
+  }
 
   if (connections?.length === 0) {
     return (
@@ -77,7 +86,7 @@ const Connections = () => {
             </span>
           </div>
 
-          <div className="cc-scrollbar-hide space-y-4 overflow-y-auto pr-1 lg:min-h-0 lg:flex-1">
+          <div className="cc-scrollbar-thin space-y-4 overflow-y-auto pr-2 lg:min-h-0 lg:flex-1">
             {connections &&
               connections.map((connection) => {
                 const {

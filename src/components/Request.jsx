@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest, removeRequest } from "../utils/requestSlice";
+import { RequestShimmer } from "./Shimmer";
 
 const getSkills = (candidate) => {
   const rawSkills =
@@ -32,6 +33,7 @@ const getSkills = (candidate) => {
 const Request = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.requests);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const reviewRequest = async (status, _id) => {
     try {
@@ -47,6 +49,7 @@ const Request = () => {
   };
 
   const fetchRequest = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get(BASE_URL + "/user/request/received", {
         withCredentials: true,
@@ -54,12 +57,18 @@ const Request = () => {
       dispatch(addRequest(res?.data?.data));
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchRequest();
   }, []);
+
+  if (isLoading) {
+    return <RequestShimmer />;
+  }
 
   if (requests?.length === 0) {
     return (
