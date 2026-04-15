@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Body from "./components/Body";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
@@ -22,6 +28,28 @@ import { addUser } from "./utils/userSlice";
 function RootPage() {
   const user = useSelector((store) => store.user);
   return user ? <Feed /> : <Home />;
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!("scrollRestoration" in window.history)) return;
+
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    return () => {
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, []);
+
+  return null;
 }
 
 function ProtectedRoute({ user, isAuthChecked, children }) {
@@ -58,6 +86,7 @@ function AppRoutes() {
 
   return (
     <BrowserRouter basename="/">
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Body />}>
           <Route path="/" element={<RootPage />} />
