@@ -147,13 +147,13 @@ const Request = () => {
 
                     <div className="mt-5 flex gap-3">
                       <button
-                        className="w-full rounded-xl border border-[#38476d] bg-[#142449] px-4 py-3 text-sm font-semibold text-[#9baad6] transition-colors hover:text-white"
+                        className="cursor-pointer w-full rounded-xl border border-[#38476d] bg-[#142449] px-4 py-3 text-sm font-semibold text-[#9baad6] transition-colors hover:text-white"
                         onClick={() => reviewRequest("rejected", request._id)}
                       >
                         Ignore
                       </button>
                       <button
-                        className="cc-primary-btn w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
+                        className="cursor-pointer cc-primary-btn w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
                         onClick={() => reviewRequest("accepted", request._id)}
                       >
                         Accept

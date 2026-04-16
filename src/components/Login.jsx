@@ -22,7 +22,7 @@ const Login = () => {
         { firstName, lastName, emailId, password },
         { withCredentials: true },
       );
-      console.log(res.data);
+
       dispatch(addUser(res.data.data));
       return navigate("/profile");
     } catch (err) {
@@ -125,7 +125,7 @@ const Login = () => {
         )}
 
         <button
-          className="cc-primary-btn mt-6 w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
+          className="cursor-pointer cc-primary-btn mt-6 w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
           onClick={isLoginForm ? handleLogin : handleSignUp}
         >
           {isLoginForm ? "Login" : "Sign Up"}

@@ -88,8 +88,18 @@ const EditProfile = ({ user }) => {
     const trimmedSkills = skills.map((item) => item.trim()).filter(Boolean);
     const normalizedAge = age === "" ? undefined : Number(age);
 
+    if (age === "") {
+      setError("Age is required");
+      return;
+    }
+
     if (!gender) {
       setError("Gender is required");
+      return;
+    }
+
+    if (trimmedSkills.length === 0) {
+      setError("At least one skill is required");
       return;
     }
 
@@ -154,7 +164,7 @@ const EditProfile = ({ user }) => {
               </div>
             </div>
             <button
-              className="cc-primary-btn rounded-xl px-6 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
+              className="cursor-pointer cc-primary-btn rounded-xl px-6 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
               onClick={saveProfile}
             >
               Save Profile
@@ -251,7 +261,7 @@ const EditProfile = ({ user }) => {
                       key={skill}
                       type="button"
                       onClick={() => removeSkill(skill)}
-                      className="rounded-full border border-[#6049a5] bg-[#2a2456] px-4 py-1.5 text-sm font-semibold text-[#b880ff]"
+                      className="cursor-pointer rounded-full border border-[#6049a5] bg-[#2a2456] px-4 py-1.5 text-sm font-semibold text-[#b880ff]"
                     >
                       {skill} <span className="ml-1">×</span>
                     </button>
@@ -280,7 +290,7 @@ const EditProfile = ({ user }) => {
                 <button
                   type="button"
                   onClick={addSkill}
-                  className="text-2xl font-bold text-[#b880ff]"
+                  className="cursor-pointer text-2xl font-bold text-[#b880ff]"
                   aria-label="Add skill"
                 >
                   +
@@ -317,7 +327,7 @@ const EditProfile = ({ user }) => {
 
             <button
               onClick={saveProfile}
-              className="cc-primary-btn w-full rounded-xl px-6 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
+              className="cursor-pointer cc-primary-btn w-full rounded-xl px-6 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
             >
               Save Profile
             </button>

@@ -30,7 +30,7 @@ const Home = () => {
         {/* CTA Button */}
         <button
           onClick={() => navigate("/login")}
-          className="mb-20 rounded-full cc-primary-btn px-8 py-3 text-lg font-bold text-white transition-all  hover:shadow-lg hover:shadow-[#699cff]/30"
+          className="cursor-pointer mb-20 rounded-full cc-primary-btn px-8 py-3 text-lg font-bold text-white transition-all  hover:shadow-lg hover:shadow-[#699cff]/30"
         >
           Get Started
         </button>

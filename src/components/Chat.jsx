@@ -179,7 +179,7 @@ const Chat = ({ targetUserId: selectedTargetUserId, targetUserName }) => {
         ></input>
         <button
           onClick={sendMessage}
-          className="cc-primary-btn shrink-0 rounded-xl px-5 py-3 text-sm font-bold"
+          className=" cursor-pointer cc-primary-btn shrink-0 rounded-xl px-5 py-3 text-sm font-bold"
         >
           Send
         </button>

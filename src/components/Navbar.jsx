@@ -45,7 +45,7 @@ const Navbar = () => {
               aria-label="Toggle navigation menu"
               aria-expanded={isMenuOpen}
               onClick={() => setIsMenuOpen((prev) => !prev)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#2b3d69] text-[#b8c7f1] transition-colors hover:bg-[#142449] hover:text-white lg:hidden"
+              className="cursor-pointer inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#2b3d69] text-[#b8c7f1] transition-colors hover:bg-[#142449] hover:text-white lg:hidden"
             >
               {isMenuOpen ? (
                 <span className="text-xl leading-none">&times;</span>
@@ -132,7 +132,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="block w-full rounded-lg px-3 py-2 text-left text-sm font-semibold text-[#b8c7f1] transition-colors hover:bg-[#142449] hover:text-white"
+                  className="cursor-pointer block w-full rounded-lg px-3 py-2 text-left text-sm font-semibold text-[#b8c7f1] transition-colors hover:bg-[#142449] hover:text-white"
                 >
                   Logout
                 </button>
@@ -209,7 +209,7 @@ const Navbar = () => {
                   </NavLink>
                   <button
                     onClick={handleLogout}
-                    className="rounded-lg px-3 py-2 text-left text-base font-semibold text-[#97a8d8] transition-colors hover:bg-[#142449] hover:text-white"
+                    className="cursor-pointer rounded-lg px-3 py-2 text-left text-base font-semibold text-[#97a8d8] transition-colors hover:bg-[#142449] hover:text-white"
                   >
                     Logout
                   </button>
@@ -222,7 +222,7 @@ const Navbar = () => {
         {!user && (
           <button
             onClick={() => navigate("/login")}
-            className="rounded-full cc-primary-btn px-6 py-2 text-base font-bold text-white transition-all  hover:shadow-lg hover:shadow-[#699cff]/30"
+            className="cursor-pointer rounded-full cc-primary-btn px-6 py-2 text-base font-bold text-white transition-all  hover:shadow-lg hover:shadow-[#699cff]/30"
           >
             Login
           </button>

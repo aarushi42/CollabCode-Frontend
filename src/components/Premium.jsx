@@ -40,7 +40,7 @@ const Premium = () => {
 
           <button
             onClick={() => openPaymentModal("Silver")}
-            className="mt-8 w-full rounded-xl border border-[#3a4f7b] bg-[#142449] px-4 py-4 text-sm font-bold text-[#d8e2ff] transition-colors hover:bg-[#1b2d55]"
+            className="cursor-pointer mt-8 w-full rounded-xl border border-[#3a4f7b] bg-[#142449] px-4 py-4 text-sm font-bold text-[#d8e2ff] transition-colors hover:bg-[#1b2d55]"
           >
             Buy Silver
           </button>
@@ -71,7 +71,7 @@ const Premium = () => {
 
           <button
             onClick={() => openPaymentModal("Gold")}
-            className="cc-primary-btn mt-8 w-full rounded-xl px-4 py-4 text-sm font-bold shadow-[0_0_20px_rgba(193,128,255,0.35)]"
+            className="cursor-pointer cc-primary-btn mt-8 w-full rounded-xl px-4 py-4 text-sm font-bold shadow-[0_0_20px_rgba(193,128,255,0.35)]"
           >
             Buy Gold
           </button>
@@ -87,12 +87,14 @@ const Premium = () => {
             className="w-full max-w-md rounded-2xl border border-[#334977] bg-[#101e3e] p-6 shadow-2xl shadow-black/40"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="cc-title text-2xl font-bold text-white">{selectedPlan} Plan</h3>
+            <h3 className="cc-title text-2xl font-bold text-white">
+              {selectedPlan} Plan
+            </h3>
             <p className="mt-3 text-[#b8c7f1]">Payment integration soon.</p>
             <div className="mt-6 flex justify-end">
               <button
                 onClick={() => setSelectedPlan("")}
-                className="rounded-lg border border-[#3a4f7b] bg-[#142449] px-4 py-2 text-sm font-semibold text-[#d8e2ff] transition-colors hover:bg-[#1b2d55]"
+                className="cursor-pointerrounded-lg border border-[#3a4f7b] bg-[#142449] px-4 py-2 text-sm font-semibold text-[#d8e2ff] transition-colors hover:bg-[#1b2d55]"
               >
                 Close
               </button>

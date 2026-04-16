@@ -97,13 +97,13 @@ const UserCard = ({ user, showActions = true }) => {
         {showActions && (
           <div className="flex gap-3">
             <button
-              className="w-full rounded-xl border border-[#38476d] px-4 py-3 text-sm font-bold text-[#9baad6] transition-colors hover:bg-[#142449] hover:text-white"
+              className="cursor-pointer w-full rounded-xl border border-[#38476d] px-4 py-3 text-sm font-bold text-[#9baad6] transition-colors hover:bg-[#142449] hover:text-white"
               onClick={() => handleSendRequest("ignored", _id)}
             >
               Ignore
             </button>
             <button
-              className="cc-primary-btn w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20 transition-transform active:scale-95"
+              className="cursor-pointer cc-primary-btn w-full rounded-xl px-4 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20 transition-transform active:scale-95"
               onClick={() => handleSendRequest("interested", _id)}
             >
               Connect
