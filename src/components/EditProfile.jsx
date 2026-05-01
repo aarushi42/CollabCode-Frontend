@@ -163,12 +163,6 @@ const EditProfile = ({ user }) => {
                 </p>
               </div>
             </div>
-            <button
-              className="cursor-pointer cc-primary-btn rounded-xl px-6 py-3 text-sm font-bold shadow-lg shadow-[#9c48ea]/20"
-              onClick={saveProfile}
-            >
-              Save Profile
-            </button>
           </div>
         </section>
 
