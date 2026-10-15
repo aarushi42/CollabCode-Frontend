@@ -1,10 +1,37 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const Premium = () => {
-  const [selectedPlan, setSelectedPlan] = useState("");
+  const handleByClick = async (type) => {
+    const order = await axios.post(
+      BASE_URL + "/payment/create",
+      {
+        membershipType: type,
+      },
+      { withCredentials: true },
+    );
 
-  const openPaymentModal = (planName) => {
-    setSelectedPlan(planName);
+    const { amount, keyId, currency, notes, orderID } = order.data;
+    //it should open the razorpay dialogue box
+
+    const options = {
+      key: keyId,
+      amount,
+      currency,
+      name: "CollabCode",
+      description: "Premium Membership",
+      order_id: orderID,
+      prefill: {
+        name: notes.firstName + " " + notes.lastName,
+        email: notes.email,
+      },
+      theme: {
+        color: "#F37254",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   return (
@@ -39,7 +66,7 @@ const Premium = () => {
           </ul>
 
           <button
-            onClick={() => openPaymentModal("Silver")}
+            onClick={() => handleByClick("silver")}
             className="cursor-pointer mt-8 w-full rounded-xl border border-[#3a4f7b] bg-[#142449] px-4 py-4 text-sm font-bold text-[#d8e2ff] transition-colors hover:bg-[#1b2d55]"
           >
             Buy Silver
@@ -70,38 +97,13 @@ const Premium = () => {
           </ul>
 
           <button
-            onClick={() => openPaymentModal("Gold")}
+            onClick={() => handleByClick("gold")}
             className="cursor-pointer cc-primary-btn mt-8 w-full rounded-xl px-4 py-4 text-sm font-bold shadow-[0_0_20px_rgba(193,128,255,0.35)]"
           >
             Buy Gold
           </button>
         </article>
       </div>
-
-      {selectedPlan && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#030812]/70 px-4 backdrop-blur-sm"
-          onClick={() => setSelectedPlan("")}
-        >
-          <div
-            className="w-full max-w-md rounded-2xl border border-[#334977] bg-[#101e3e] p-6 shadow-2xl shadow-black/40"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="cc-title text-2xl font-bold text-white">
-              {selectedPlan} Plan
-            </h3>
-            <p className="mt-3 text-[#b8c7f1]">Payment integration soon.</p>
-            <div className="mt-6 flex justify-end">
-              <button
-                onClick={() => setSelectedPlan("")}
-                className="cursor-pointerrounded-lg border border-[#3a4f7b] bg-[#142449] px-4 py-2 text-sm font-semibold text-[#d8e2ff] transition-colors hover:bg-[#1b2d55]"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="mx-auto mt-20 max-w-5xl text-center">
         <p className="cc-title mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[#9baad6]">
