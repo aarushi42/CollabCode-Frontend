@@ -11,7 +11,7 @@ const Premium = () => {
       { withCredentials: true },
     );
 
-    const { amount, keyId, currency, notes, orderID } = order.data;
+    const { amount, keyId, currency, notes, orderId } = order.data;
     //it should open the razorpay dialogue box
 
     const options = {
@@ -20,10 +20,10 @@ const Premium = () => {
       currency,
       name: "CollabCode",
       description: "Premium Membership",
-      order_id: orderID,
+      order_id: orderId,
       prefill: {
         name: notes.firstName + " " + notes.lastName,
-        email: notes.email,
+        email: notes.emailId,
       },
       theme: {
         color: "#F37254",
