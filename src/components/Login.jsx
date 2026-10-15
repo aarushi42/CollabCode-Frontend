@@ -5,6 +5,16 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
+const getErrorMessage = (err) => {
+  const backendError = err?.response?.data;
+
+  if (typeof backendError === "string") {
+    return backendError;
+  }
+
+  return backendError?.message || "Something went wrong";
+};
+
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +36,8 @@ const Login = () => {
       dispatch(addUser(res.data.data));
       return navigate("/profile");
     } catch (err) {
-      console.log(err);
+      setError(getErrorMessage(err));
+      console.error(err);
     }
   };
 
@@ -43,7 +54,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
+      setError(getErrorMessage(err));
       console.error(err);
     }
   };
