@@ -1,11 +1,10 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { useDispatch } from "react-redux";
+import { setPremium } from "../utils/userSlice";
 
 const Premium = () => {
-  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const [isUserPremium, setIsUserPremium] = useState(false);
   const [isPremiumStatusLoading, setIsPremiumStatusLoading] = useState(true);
@@ -23,7 +22,7 @@ const Premium = () => {
   const handlePaymentSuccess = async () => {
     setPaymentError("");
     setIsUserPremium(true);
-    dispatch(addUser({ ...user, isPremium: true }));
+    dispatch(setPremium());
     setShowPaymentSuccess(true);
     window.setTimeout(() => setShowPaymentSuccess(false), 5000);
     await verifyPremiumUser();
