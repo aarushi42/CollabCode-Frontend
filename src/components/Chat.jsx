@@ -6,8 +6,13 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { ChatShimmer } from "./Shimmer";
+import PremiumBadge from "./PremiumBadge";
 
-const Chat = ({ targetUserId: selectedTargetUserId, targetUserName }) => {
+const Chat = ({
+  targetUserId: selectedTargetUserId,
+  targetUserName,
+  targetUserIsPremium,
+}) => {
   const { targetUserId: paramTargetUserId } = useParams();
   const targetUserId = selectedTargetUserId || paramTargetUserId;
   const [messages, setMessages] = useState([]);
@@ -129,8 +134,9 @@ const Chat = ({ targetUserId: selectedTargetUserId, targetUserName }) => {
   return (
     <div className="flex h-full min-h-[420px] flex-col overflow-hidden rounded-[30px] border border-[#2a3e6a] bg-[#0e1b37]/60 backdrop-blur-lg">
       <div className="flex items-center justify-between border-b border-[#2a3e6a] bg-[#142449]/70 px-6 py-4">
-        <h1 className="cc-title text-xl font-bold text-white">
-          {targetUserName || "Conversation"}
+        <h1 className="cc-title flex items-center gap-2 text-xl font-bold text-white">
+          <span>{targetUserName || "Conversation"}</span>
+          {targetUserIsPremium && <PremiumBadge />}
         </h1>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9baad6]">
           Live Chat

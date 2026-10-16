@@ -4,6 +4,7 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest, removeRequest } from "../utils/requestSlice";
 import { RequestShimmer } from "./Shimmer";
+import PremiumBadge from "./PremiumBadge";
 
 const getSkills = (candidate) => {
   const rawSkills =
@@ -97,8 +98,16 @@ const Request = () => {
       <div className="space-y-4">
         {requests &&
           requests.map((request) => {
-            const { _id, firstName, lastName, photoUrl, age, gender, about } =
-              request.fromUserId;
+            const {
+              _id,
+              firstName,
+              lastName,
+              photoUrl,
+              age,
+              gender,
+              about,
+              isPremium,
+            } = request.fromUserId;
             const skills = getSkills(request?.fromUserId);
 
             return (
@@ -107,11 +116,16 @@ const Request = () => {
                 className="cc-glass rounded-2xl p-5 transition-colors hover:bg-[#142449]/70"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-                  <img
-                    alt="profile"
-                    src={photoUrl}
-                    className="h-16 w-16 rounded-full border-2 border-[#2f4270] object-cover"
-                  />
+                  <div className="relative h-16 w-16 shrink-0">
+                    <img
+                      alt="profile"
+                      src={photoUrl}
+                      className="h-16 w-16 rounded-full border-2 border-[#2f4270] object-cover"
+                    />
+                    {isPremium && (
+                      <PremiumBadge className="absolute -bottom-1 -right-1 border-2 border-[#0f1d3a]" />
+                    )}
+                  </div>
 
                   <div className="flex-1">
                     <div className="flex items-center justify-between gap-3">

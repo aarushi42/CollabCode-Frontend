@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 const Premium = () => {
   const [isUserPremium, setIsUserPremium] = useState(false);
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
 
   const verifyPremiumUser = async () => {
     const res = await axios.get(BASE_URL + "/premium/verify", {
@@ -13,6 +14,12 @@ const Premium = () => {
     if (res.data.isPremium) {
       setIsUserPremium(true);
     }
+  };
+
+  const handlePaymentSuccess = async () => {
+    await verifyPremiumUser();
+    setShowPaymentSuccess(true);
+    window.setTimeout(() => setShowPaymentSuccess(false), 5000);
   };
 
   useEffect(() => {
@@ -45,51 +52,53 @@ const Premium = () => {
       theme: {
         color: "#F37254",
       },
-      handler: verifyPremiumUser,
+      handler: handlePaymentSuccess,
     };
 
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
 
-  return isUserPremium ? (
-    <main className="flex min-h-[calc(100vh-4.5rem)] items-center justify-center px-6 py-16">
-      <section className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-[#4b3b82] bg-[#111d3d]/90 p-8 text-center shadow-2xl shadow-[#080d23]/50 md:p-12">
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#8d6bff] via-[#c180ff] to-[#6fe7d2]" />
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#2a2357] text-[#c180ff] ring-1 ring-[#7657c9]/50">
-          <svg
-            aria-hidden="true"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="1.8"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 12.75 11.25 15 15 9.75M12 3l8.25 4.5v4.75c0 4.1-2.7 7.85-8.25 9.75C6.45 20.1 3.75 16.35 3.75 12.25V7.5L12 3Z"
-            />
-          </svg>
-        </div>
-        <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-[#9b88e8]">
-          Premium membership
-        </p>
-        <h1 className="cc-title mt-3 text-3xl font-extrabold text-white md:text-4xl">
-          You&apos;re already premium
-        </h1>
-        <p className="mx-auto mt-4 max-w-md text-base leading-7 text-[#aebce0]">
-          Your membership is active. Enjoy unlimited collaboration and all
-          premium features available on CollabCode.
-        </p>
-        <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#315a67] bg-[#122f3b] px-4 py-2 text-sm font-semibold text-[#8de6d4]">
-          <span className="h-2 w-2 rounded-full bg-[#6fe7d2]" />
-          Membership active
-        </div>
-      </section>
-    </main>
-  ) : (
-    <main className="px-6 pb-20 pt-16">
+  return (
+    <>
+      {isUserPremium ? (
+        <main className="flex min-h-[calc(100vh-4.5rem)] items-center justify-center px-6 py-16">
+          <section className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-[#4b3b82] bg-[#111d3d]/90 p-8 text-center shadow-2xl shadow-[#080d23]/50 md:p-12">
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#8d6bff] via-[#c180ff] to-[#6fe7d2]" />
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#2a2357] text-[#c180ff] ring-1 ring-[#7657c9]/50">
+              <svg
+                aria-hidden="true"
+                className="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12.75 11.25 15 15 9.75M12 3l8.25 4.5v4.75c0 4.1-2.7 7.85-8.25 9.75C6.45 20.1 3.75 16.35 3.75 12.25V7.5L12 3Z"
+                />
+              </svg>
+            </div>
+            <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-[#9b88e8]">
+              Premium membership
+            </p>
+            <h1 className="cc-title mt-3 text-3xl font-extrabold text-white md:text-4xl">
+              You&apos;re already premium
+            </h1>
+            <p className="mx-auto mt-4 max-w-md text-base leading-7 text-[#aebce0]">
+              Your membership is active. Enjoy unlimited collaboration and all
+              premium features available on CollabCode.
+            </p>
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#315a67] bg-[#122f3b] px-4 py-2 text-sm font-semibold text-[#8de6d4]">
+              <span className="h-2 w-2 rounded-full bg-[#6fe7d2]" />
+              Membership active
+            </div>
+          </section>
+        </main>
+      ) : (
+        <main className="px-6 pb-20 pt-16">
       <div className="mx-auto mb-14 max-w-6xl text-center">
         <h2 className="cc-title text-4xl font-extrabold tracking-tight text-white md:text-6xl">
           Elevate Your <span className="text-[#c180ff]">Experience.</span>
@@ -170,7 +179,26 @@ const Premium = () => {
           <span>OpenAI</span>
         </div>
       </div>
-    </main>
+        </main>
+      )}
+
+      {showPaymentSuccess && (
+        <div
+          role="status"
+          className="fixed right-6 top-24 z-[60] flex items-start gap-3 rounded-2xl border border-[#3ed598]/40 bg-[#102f32] px-5 py-4 text-[#d8fff1] shadow-2xl shadow-black/30"
+        >
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2fd28b] text-sm font-black text-[#07251d]">
+            ✓
+          </span>
+          <div>
+            <p className="font-bold">Payment successful</p>
+            <p className="mt-1 text-sm text-[#9ce8ca]">
+              Your premium membership is being activated.
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

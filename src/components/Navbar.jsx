@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import PremiumBadge from "./PremiumBadge";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
@@ -113,13 +114,16 @@ const Navbar = () => {
                 to="/profile"
                 title="Profile"
                 onClick={handleNavClick}
-                className="inline-flex h-11 w-11 items-center justify-center transition-transform hover:scale-105"
+                className="relative inline-flex h-11 w-11 items-center justify-center transition-transform hover:scale-105"
               >
                 <img
                   alt="user photo"
                   src={user.photoUrl}
                   className="h-11 w-11 rounded-full border border-[#2b3d69] object-cover"
                 />
+                {user.isPremium && (
+                  <PremiumBadge className="absolute -bottom-1 -right-1 h-4 w-4 border-2 border-[#050c1d]" />
+                )}
               </Link>
 
               <div className="invisible absolute right-0 top-12 w-44 rounded-xl border border-[#2b3d69] bg-[#0f1d3a] p-2 opacity-0 shadow-xl transition-all group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">

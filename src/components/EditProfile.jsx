@@ -5,6 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import PremiumBadge from "./PremiumBadge";
 
 const getSkills = (candidate) => {
   const rawSkills =
@@ -149,11 +150,16 @@ const EditProfile = ({ user }) => {
           <div className="h-40 bg-linear-to-br from-[#081329] via-[#142449] to-[#002455]" />
           <div className="-mt-14 flex flex-col gap-4 px-6 pb-6 md:flex-row md:items-end md:justify-between md:px-8">
             <div className="flex items-end gap-4">
-              <img
-                src={photoUrl}
-                alt="profile"
-                className="h-28 w-28 rounded-2xl border-4 border-[#060e20] object-cover shadow-xl"
-              />
+              <div className="relative h-28 w-28 shrink-0">
+                <img
+                  src={photoUrl}
+                  alt="profile"
+                  className="h-28 w-28 rounded-2xl border-4 border-[#060e20] object-cover shadow-xl"
+                />
+                {user.isPremium && (
+                  <PremiumBadge className="absolute bottom-0 right-0 border-2 border-[#060e20]" />
+                )}
+              </div>
               <div>
                 <h1 className="cc-title text-3xl font-bold text-white">
                   {firstName} {lastName}

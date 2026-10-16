@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 import Chat from "./Chat";
 import { ConnectionsShimmer } from "./Shimmer";
+import PremiumBadge from "./PremiumBadge";
 
 const getSkills = (candidate) => {
   const rawSkills =
@@ -89,6 +90,7 @@ const Connections = () => {
               <Chat
                 targetUserId={selectedConnection._id}
                 targetUserName={`${selectedConnection.firstName} ${selectedConnection.lastName}`}
+                targetUserIsPremium={selectedConnection.isPremium}
               />
             </div>
           </>
@@ -114,6 +116,7 @@ const Connections = () => {
                     age,
                     gender,
                     about,
+                    isPremium,
                   } = connection;
                   const skills = getSkills(connection);
 
@@ -123,11 +126,16 @@ const Connections = () => {
                       className="rounded-2xl border border-[#2d406b] bg-[#0f1d3a]/70 p-4 transition-all hover:bg-[#142449]/70"
                     >
                       <div className="flex items-start gap-4">
-                        <img
-                          alt="profile"
-                          src={photoUrl}
-                          className="h-14 w-14 rounded-full border border-[#334977] object-cover"
-                        />
+                        <div className="relative h-14 w-14 shrink-0">
+                          <img
+                            alt="profile"
+                            src={photoUrl}
+                            className="h-14 w-14 rounded-full border border-[#334977] object-cover"
+                          />
+                          {isPremium && (
+                            <PremiumBadge className="absolute -bottom-1 -right-1 border-2 border-[#0f1d3a]" />
+                          )}
+                        </div>
                         <div className="min-w-0 flex-1">
                           <h3 className="cc-title truncate text-lg font-bold text-white">
                             {firstName} {lastName}
@@ -194,6 +202,7 @@ const Connections = () => {
                   age,
                   gender,
                   about,
+                  isPremium,
                 } = connection;
                 const skills = getSkills(connection);
                 const isActive = selectedConnection?._id === _id;
@@ -208,11 +217,16 @@ const Connections = () => {
                     }`}
                   >
                     <div className="flex items-start gap-4">
-                      <img
-                        alt="profile"
-                        src={photoUrl}
-                        className="h-14 w-14 rounded-full border border-[#334977] object-cover"
-                      />
+                      <div className="relative h-14 w-14 shrink-0">
+                        <img
+                          alt="profile"
+                          src={photoUrl}
+                          className="h-14 w-14 rounded-full border border-[#334977] object-cover"
+                        />
+                        {isPremium && (
+                          <PremiumBadge className="absolute -bottom-1 -right-1 border-2 border-[#0f1d3a]" />
+                        )}
+                      </div>
                       <div className="min-w-0 flex-1">
                         <h3 className="cc-title truncate text-lg font-bold text-white">
                           {firstName} {lastName}
@@ -264,6 +278,7 @@ const Connections = () => {
             <Chat
               targetUserId={selectedConnection._id}
               targetUserName={`${selectedConnection.firstName} ${selectedConnection.lastName}`}
+              targetUserIsPremium={selectedConnection.isPremium}
             />
           ) : (
             <div className="flex min-h-105 items-center justify-center rounded-[30px] border border-dashed border-[#344a77] bg-[#0f1d3a]/50 p-10 text-center">

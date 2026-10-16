@@ -3,6 +3,7 @@ import React from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
+import PremiumBadge from "./PremiumBadge";
 
 const getSkills = (candidate) => {
   const rawSkills =
@@ -30,7 +31,8 @@ const getSkills = (candidate) => {
 };
 
 const UserCard = ({ user, showActions = true }) => {
-  const { _id, firstName, lastName, photoUrl, age, about, gender } = user;
+  const { _id, firstName, lastName, photoUrl, age, about, gender, isPremium } =
+    user;
   const skills = getSkills(user);
   const dispatch = useDispatch();
 
@@ -50,16 +52,21 @@ const UserCard = ({ user, showActions = true }) => {
   return (
     <div className="cc-glass w-full max-w-sm overflow-hidden rounded-3xl shadow-2xl shadow-black/30">
       <div className="relative h-72 w-full overflow-hidden">
-        <img
-          src={photoUrl}
-          alt="Profile"
-          className="h-full w-full object-cover grayscale-[0.1] transition-all duration-500 hover:grayscale-0"
-        />
+        <div className="relative h-full w-full">
+          <img
+            src={photoUrl}
+            alt="Profile"
+            className="h-full w-full object-cover grayscale-[0.1] transition-all duration-500 hover:grayscale-0"
+          />
+        </div>
         <div className="absolute inset-0 bg-linear-to-t from-[#060e20] via-transparent to-transparent" />
         <div className="absolute bottom-4 left-4">
-          <h3 className="cc-title text-2xl font-bold text-white">
-            {firstName} {lastName}
-            {age ? `, ${age}` : ""}
+          <h3 className="cc-title flex items-center gap-2 text-2xl font-bold text-white">
+            <span>
+              {firstName} {lastName}
+              {age ? `, ${age}` : ""}
+            </span>
+            {isPremium && <PremiumBadge />}
           </h3>
           {gender && (
             <p className="text-sm font-semibold text-[#d9b0ff]">{gender}</p>
