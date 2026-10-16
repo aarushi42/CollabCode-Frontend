@@ -4,60 +4,111 @@ import { useState, useEffect } from "react";
 
 const Premium = () => {
   const [isUserPremium, setIsUserPremium] = useState(false);
+  const [isPremiumStatusLoading, setIsPremiumStatusLoading] = useState(true);
   const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
 
   const verifyPremiumUser = async () => {
     const res = await axios.get(BASE_URL + "/premium/verify", {
       withCredentials: true,
     });
 
-    if (res.data.isPremium) {
-      setIsUserPremium(true);
-    }
+    setIsUserPremium(Boolean(res.data.isPremium));
   };
 
   const handlePaymentSuccess = async () => {
-    await verifyPremiumUser();
+    setPaymentError("");
     setShowPaymentSuccess(true);
     window.setTimeout(() => setShowPaymentSuccess(false), 5000);
+    await verifyPremiumUser();
+  };
+
+  const handlePaymentFailure = (response) => {
+    setShowPaymentSuccess(false);
+    setPaymentError(
+      response?.error?.description ||
+        "Payment failed or was cancelled. Please try again.",
+    );
+    window.setTimeout(() => setPaymentError(""), 5000);
   };
 
   useEffect(() => {
-    verifyPremiumUser();
+    let isMounted = true;
+
+    const loadPremiumStatus = async () => {
+      try {
+        const res = await axios.get(BASE_URL + "/premium/verify", {
+          withCredentials: true,
+        });
+        if (isMounted) {
+          setIsUserPremium(Boolean(res.data.isPremium));
+        }
+      } catch (err) {
+        console.error("Unable to verify premium status", err);
+      } finally {
+        if (isMounted) {
+          setIsPremiumStatusLoading(false);
+        }
+      }
+    };
+
+    loadPremiumStatus();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleByClick = async (type) => {
-    const order = await axios.post(
-      BASE_URL + "/payment/create",
-      {
-        membershipType: type,
-      },
-      { withCredentials: true },
-    );
+    try {
+      setPaymentError("");
+      const order = await axios.post(
+        BASE_URL + "/payment/create",
+        {
+          membershipType: type,
+        },
+        { withCredentials: true },
+      );
 
-    const { amount, keyId, currency, notes, orderId } = order.data;
-    //it should open the razorpay dialogue box
+      const { amount, keyId, currency, notes, orderId } = order.data;
 
-    const options = {
-      key: keyId,
-      amount,
-      currency,
-      name: "CollabCode",
-      description: "Premium Membership",
-      order_id: orderId,
-      prefill: {
-        name: notes.firstName + " " + notes.lastName,
-        email: notes.emailId,
-      },
-      theme: {
-        color: "#F37254",
-      },
-      handler: handlePaymentSuccess,
-    };
+      const options = {
+        key: keyId,
+        amount,
+        currency,
+        name: "CollabCode",
+        description: "Premium Membership",
+        order_id: orderId,
+        prefill: {
+          name: notes.firstName + " " + notes.lastName,
+          email: notes.emailId,
+        },
+        theme: {
+          color: "#F37254",
+        },
+        handler: handlePaymentSuccess,
+      };
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+      const rzp = new window.Razorpay(options);
+      rzp.on("payment.failed", handlePaymentFailure);
+      rzp.open();
+    } catch (err) {
+      setPaymentError(
+        err?.response?.data?.error ||
+          "Unable to start payment. Please try again.",
+      );
+    }
   };
+
+  if (isPremiumStatusLoading) {
+    return (
+      <main className="flex min-h-[calc(100vh-4.5rem)] items-center justify-center px-6 py-16">
+        <div className="rounded-full border border-[#334977] bg-[#111d3d]/90 px-5 py-3 text-sm font-semibold text-[#aebce0]">
+          Checking premium membership...
+        </div>
+      </main>
+    );
+  }
 
   return (
     <>
@@ -109,33 +160,7 @@ const Premium = () => {
         </p>
       </div>
 
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
-        <article className="flex h-full flex-col rounded-3xl border border-[#314772] bg-[#0f1d3a]/70 p-8 shadow-2xl shadow-black/20">
-          <span className="rounded-full bg-[#142449] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#adc6ff]">
-            Silver Tier
-          </span>
-          <h3 className="cc-title mt-4 text-3xl font-bold text-white">
-            Silver Plan
-          </h3>
-          <div className="mt-3 flex items-end gap-2">
-            <span className="text-4xl font-bold text-white">₹999</span>
-            <span className="pb-1 text-[#9baad6]">/ 3 months</span>
-          </div>
-
-          <ul className="mt-8 flex-1 space-y-4 text-[#d8e2ff]">
-            <li>Chat access</li>
-            <li>100 requests / day</li>
-            <li>Blue tick badge</li>
-          </ul>
-
-          <button
-            onClick={() => handleByClick("silver")}
-            className="cursor-pointer mt-8 w-full rounded-xl border border-[#3a4f7b] bg-[#142449] px-4 py-4 text-sm font-bold text-[#d8e2ff] transition-colors hover:bg-[#1b2d55]"
-          >
-            Buy Silver
-          </button>
-        </article>
-
+      <div className="mx-auto grid max-w-xl grid-cols-1 gap-8">
         <article className="relative flex h-full flex-col rounded-3xl border border-[#c180ff]/50 bg-[#111f3e] p-8 shadow-2xl shadow-[#9c48ea]/15">
           <span className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-linear-to-r from-[#9c48ea] to-[#c180ff] px-6 py-1.5 text-sm font-bold text-[#190728]">
             MOST POPULAR
@@ -153,8 +178,6 @@ const Premium = () => {
           </div>
 
           <ul className="mt-8 flex-1 space-y-4 text-[#d8e2ff]">
-            <li>Unlimited requests</li>
-            <li>Full chat access</li>
             <li>Exclusive Blue tick</li>
             <li>Early feature access</li>
           </ul>
@@ -195,6 +218,21 @@ const Premium = () => {
             <p className="mt-1 text-sm text-[#9ce8ca]">
               Your premium membership is being activated.
             </p>
+          </div>
+        </div>
+      )}
+
+      {paymentError && (
+        <div
+          role="alert"
+          className="fixed right-6 top-24 z-[60] flex items-start gap-3 rounded-2xl border border-[#ff7185]/40 bg-[#3b1729] px-5 py-4 text-[#ffe3e8] shadow-2xl shadow-black/30"
+        >
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ff7185] text-sm font-black text-[#35101b]">
+            !
+          </span>
+          <div>
+            <p className="font-bold">Payment unsuccessful</p>
+            <p className="mt-1 text-sm text-[#ffb8c3]">{paymentError}</p>
           </div>
         </div>
       )}
